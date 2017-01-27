@@ -55,6 +55,33 @@ data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
 
+
+# Quiz: Stock Option Range
+stock_options = []
+for key, value in data_dict.iteritems():
+    if data_dict[key]['exercised_stock_options'] == "NaN":
+        data_dict[key]['exercised_stock_options'] = 0
+    else:
+        stock_options.append(data_dict[key]['exercised_stock_options'])
+
+min_value = min(stock_options)
+max_value = max(stock_options)
+print "Minimum stock value: {0}".format(min_value)
+print "Maximum stock value: {0}".format(max_value)
+
+# Quiz: Salary Range
+salary_list = []
+for key in data_dict:
+    if data_dict[key]['salary'] == "NaN":
+        data_dict[key]['salary'] = 0
+    else:
+        salary_list.append(data_dict[key]['salary'])
+
+min_salary = min(salary_list)
+max_salary = max(salary_list)
+print "Minimum salary value: {0}".format(min_salary)
+print "Maximum salary value: {0}".format(max_salary)
+
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
@@ -67,6 +94,7 @@ plt.show()
 ### for the data and store them to a list called pred
 from sklearn.cluster import KMeans
 
+
 kmeans = KMeans(n_clusters=2, random_state=0).fit(finance_features)
 pred = kmeans.predict(finance_features)
 
@@ -75,6 +103,6 @@ pred = kmeans.predict(finance_features)
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
 try:
-    Draw(pred, finance_features, poi, mark_poi=False, name="clusters_changed.pdf", f1_name=feature_1, f2_name=feature_2)
+    Draw(pred, finance_features, poi, mark_poi=False, name="clusters_before_scaling.pdf", f1_name=feature_1, f2_name=feature_2)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
