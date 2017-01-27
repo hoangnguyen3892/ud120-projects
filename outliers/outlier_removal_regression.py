@@ -34,9 +34,11 @@ reg.fit(ages_train, net_worths_train)
 
 slope = reg.coef_
 intercept = reg.intercept_
+score = reg.score(ages_test, net_worths_test)
 
-print "slope: {0}".format(slope)
-print "intercept: {0}".format(intercept)
+print "slope (w outliers): {0}".format(slope)
+print "intercept (w outliers): {0}".format(intercept)
+print "r^2 (w outliers): {0}".format(score)
 
 
 # Quiz: Score Of Regression With Outliers
@@ -77,6 +79,15 @@ if len(cleaned_data) > 0:
     ### refit your cleaned data!
     try:
         reg.fit(ages, net_worths)
+
+        slope = reg.coef_
+        intercept = reg.intercept_
+        score = reg.score(ages_test, net_worths_test)
+
+        print "slope (w/o outliers): {0}".format(slope)
+        print "intercept (w/o outliers): {0}".format(intercept)
+        print "r^2 (/ow outliers): {0}".format(score)
+
         plt.plot(ages, reg.predict(ages), color="blue")
     except NameError:
         print "you don't seem to have regression imported/created,"
