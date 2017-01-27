@@ -26,13 +26,22 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
 
+from sklearn.linear_model import LinearRegression
+
+reg = LinearRegression()
+reg.fit(ages_train, net_worths_train)
 
 
+slope = reg.coef_
+intercept = reg.intercept_
+
+print "slope: {0}".format(slope)
+print "intercept: {0}".format(intercept)
 
 
-
-
-
+# Quiz: Score Of Regression With Outliers
+score_test = reg.score(ages_test, net_worths_test)
+print "Score of regression on the test data: {0}".format(score_test)
 
 
 

@@ -25,6 +25,29 @@ features_train, features_test, labels_train, labels_test = preprocess()
 #########################################################
 ### your code goes here ###
 
+from sklearn import svm
+from sklearn.metrics import accuracy_score, classification_report
+from collections import Counter
+
+#features_train = features_train[:len(features_train)/100]
+#labels_train = labels_train[:len(labels_train)/100] 
+
+
+#clf = svm.SVC(kernel="linear")
+clf = svm.SVC(C= 10000, kernel="rbf")
+
+starting_time = time()
+author_identifier = clf.fit(features_train, labels_train)
+pred = author_identifier.predict(features_test)
+
+print classification_report(labels_test, pred)
+print Counter(pred)
+
+#print "answer: {0}".format(answer)
+print "training time", round(time()-starting_time, 3), "s"
+acc = accuracy_score(labels_test, pred)
+print "prediction time", round(time()-starting_time, 3), "s"
+print "accuracy: {0}".format(round(acc, 3))
 #########################################################
 
 
