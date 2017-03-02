@@ -27,5 +27,23 @@ labels, features = targetFeatureSplit(data)
 
 
 ### your code goes here 
+print "Number of features: %f" %len(features)
+
+from sklearn import cross_validation  
+features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.3, random_state=42)
+print "Number of test features: %f" %len(features_test)
 
 
+from sklearn import tree
+from sklearn.metrics import accuracy_score
+
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
+prediction = clf.predict(features_test)
+print accuracy_score(prediction, labels_test)
+
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+print classification_report(labels_test, prediction)
+print confusion_matrix(labels_test, prediction)
